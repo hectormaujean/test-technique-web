@@ -1,6 +1,9 @@
 import React from 'react';
-
 import { database } from './../services/firebase';
+
+import { Card } from 'semantic-ui-react';
+
+import EquipmentCard from './../components/EquipmentCard';
 
 class EquipmentsContainer extends React.Component {
     constructor(props) {
@@ -50,11 +53,11 @@ class EquipmentsContainer extends React.Component {
                         {error ? (
                             <div>Error</div>
                         ) : (
-                            <div>
+                            <Card.Group centered>
                                 {equipments && equipments.map(equipment => (
-                                    <p key={equipment.key}>{equipment.name}</p>
+                                    <EquipmentCard equipment={equipment} />
                                 ))}
-                            </div>
+                            </Card.Group>
                         )}
                     </div>
                 )}
