@@ -11,8 +11,8 @@ const CustomCardContent = styled(Card.Content)`
     flex-grow: 0 !important;
 `;
 
-const EquipmentCard = ({ equipment }) => (
-    <Card raised key={equipment.key}>
+const EquipmentCard = ({ equipment, handleClick }) => (
+    <Card raised onClick={handleClick} equipment={equipment}>
         <CardImage src={equipment.photo} />
         <CustomCardContent>
             <Card.Header>{equipment.name}</Card.Header>

@@ -22,19 +22,27 @@ class EquipmentsContainer extends React.Component {
     getData = () => {
         this.setState({ loading: true }, () => {
             try {
-                database.ref("Equipments/").orderByChild('name').on("value", snapshot => {
+                database.ref("Equipments/").orderByChild('name').once("value", snapshot => {
                     let equipments = [];
                     snapshot.forEach((child) => {
                         equipments.push(
                             { ...child.val(), key: child.key }
                         );
                     })
-                    this.setState({ loading: false, equipments }, () => console.log(this.state.equipments));
+                    this.setState({ loading: false, equipments });
                 });
             } catch {
                 this.setState({ loading: false, error: true });
             }
         })
+    }
+
+    handleCardClick = (e, { equipment }) => {
+        const { history } = this.props;
+        history.push({
+            pathname: `/equipment/${equipment.key}`,
+            state: { equipment: equipment }
+        });
     }
 
     render() {
@@ -55,7 +63,7 @@ class EquipmentsContainer extends React.Component {
                         ) : (
                             <Card.Group centered>
                                 {equipments && equipments.map(equipment => (
-                                    <EquipmentCard equipment={equipment} />
+                                    <EquipmentCard key={equipment.key} equipment={equipment} handleClick={this.handleCardClick} />
                                 ))}
                             </Card.Group>
                         )}
