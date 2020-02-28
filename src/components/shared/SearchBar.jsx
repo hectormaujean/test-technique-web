@@ -7,6 +7,8 @@ const Search = styled.input`
     border: 1px solid rgba(34,36,38,.15);
     border-radius: 12px;
     padding: 9px 15px;
+    width: 300px;
+    text-align: center;
     &:focus {
         outline: none;
         border-color: #85B7D9;
@@ -14,9 +16,10 @@ const Search = styled.input`
 `;
 
 const SearchBar = ({
-    onChange
+    onChange,
+    placeholder
 }) => (
-    <Search type="search" onChange={onChange} />
+    <Search type="search" onChange={onChange} placeholder={placeholder} />
 )
 
 export default SearchBar;

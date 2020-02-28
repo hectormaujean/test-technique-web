@@ -6,7 +6,9 @@ import { Card } from 'semantic-ui-react';
 
 import formatString from './../helpers/formatter';
 import SearchBar from './../components/shared/SearchBar';
+import CustomMessage from './../components/shared/CustomMessage';
 import EquipmentCard from './../components/EquipmentCard';
+import EquipmentsPlaceholder from '../components/shared/EquipmentsPlaceholder';
 
 const Header = styled.div`
     display: flex;
@@ -81,32 +83,28 @@ class EquipmentsContainer extends React.Component {
 
         return (
             <div>
-                <Header>
-                    <h1>Équipements</h1>
-                    <SearchBar onChange={this.handleSearchChange} />
-                </Header>
-                
-                <div>
-                    {loading ? (
-                        <div>Loading</div>
-                    ) : (
-                        <div>
-                            {error ? (
-                                <div>Error</div>
-                            ) : (
-                                <Card.Group centered>
-                                    {displayedEquipments && displayedEquipments.length ? displayedEquipments.map(equipment => (
-                                        <EquipmentCard key={equipment.key} equipment={equipment} handleClick={this.handleCardClick} />
-                                    )) : (
-                                        <div>No results :(</div>
-                                    )}
-                                </Card.Group>
-                            )}
-                        </div>
-                    )}
-                </div>
+                {loading ? (
+                    <EquipmentsPlaceholder />
+                ) : (
+                    <div>
+                        <Header>
+                            <h1>Équipements</h1>
+                            <SearchBar onChange={this.handleSearchChange} placeholder="Rechercher un équipement" />
+                        </Header>
+                        {error ? (
+                            <CustomMessage />
+                        ) : (
+                            <Card.Group centered>
+                                {displayedEquipments && displayedEquipments.length ? displayedEquipments.map(equipment => (
+                                    <EquipmentCard key={equipment.key} equipment={equipment} handleClick={this.handleCardClick} />
+                                )) : (
+                                    <CustomMessage type="no-data" />
+                                )}
+                            </Card.Group>
+                        )}
+                    </div>
+                )}
             </div>
-            
         )
     }
 }
