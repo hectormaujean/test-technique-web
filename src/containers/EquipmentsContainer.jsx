@@ -7,8 +7,8 @@ import { Card } from 'semantic-ui-react';
 import formatString from './../helpers/formatter';
 import SearchBar from './../components/shared/SearchBar';
 import CustomMessage from './../components/shared/CustomMessage';
-import EquipmentCard from './../components/EquipmentCard';
-import EquipmentsPlaceholder from '../components/shared/EquipmentsPlaceholder';
+import EquipmentCard from './../components/equipments/EquipmentCard';
+import EquipmentsPlaceholder from '../components/equipments/EquipmentsPlaceholder';
 
 const Header = styled.div`
     display: flex;

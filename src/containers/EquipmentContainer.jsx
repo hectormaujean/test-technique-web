@@ -1,6 +1,11 @@
 import React from 'react';
 import { database } from './../services/firebase';
 
+import CustomMessage from './../components/shared/CustomMessage';
+import EquipmentPlaceholder from '../components/equipment/EquipmentPlaceholder';
+import EquipmentDetails from '../components/equipment/EquipmentDetails';
+import EquipmentCheckpoints from '../components/equipment/EquipmentCheckpoints';
+
 class EquipmentContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -29,7 +34,7 @@ class EquipmentContainer extends React.Component {
                             );
                         }
                     })
-                    this.setState({ loading: false, checkpoints }, () => console.log(this.state.checkpoints));
+                    this.setState({ loading: false, checkpoints });
                 });
             } catch {
                 this.setState({ loading: false, error: true });
@@ -38,9 +43,32 @@ class EquipmentContainer extends React.Component {
     }
 
     render() {
-        const { equipment } = this.state;
+        const {
+            loading,
+            error,
+            equipment,
+            checkpoints
+        } = this.state;
+
         return (
-            <div>{equipment.name}</div>
+            <div>
+                {loading ? (
+                    <EquipmentPlaceholder />
+                ) : (
+                    <div>
+                        {error ? (
+                            <CustomMessage />
+                        ) : (
+                            <div>
+                                <EquipmentDetails equipment={equipment} />
+                                {checkpoints && (
+                                    <EquipmentCheckpoints checkpoints={checkpoints} />
+                                )}
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
         )
     }
 }
